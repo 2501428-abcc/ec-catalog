@@ -52,8 +52,8 @@ if ($errors) {
 }
 
 // 登録（パスワードはまだ平文。第11回でハッシュ化する）
+$hash = password_hash($password, PASSWORD_DEFAULT);
 $stmt = $pdo->prepare('INSERT INTO users (email, password, name) VALUES (?, ?, ?)');
-$stmt->execute([$email, $password, $name]);
-
+$stmt->execute([$email, $hash, $name]);
 header('Location: register-done.php');
 exit;
